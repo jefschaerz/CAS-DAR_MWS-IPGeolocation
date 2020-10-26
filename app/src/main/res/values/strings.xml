@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">IPGeolocation</string>
+    <string name="ip_address">IP Address</string>
+    <string name="result">Result</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
 </resources>
