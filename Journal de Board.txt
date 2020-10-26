@@ -1,0 +1,21 @@
+
+
+
+Backlog :
+---------
+
+
+TODO 0 : Test API et infos avec Postman
+
+
+26.10.2020 - 21h00
+--------------------
+
+- Create Mockups
+
+Mise en place projet :
+
+- Création du Repo sur github
+- Clone le repos sur PC098 (perso)
+- Créer nouveau projet empty dans Android Studio
+- Commit et push initial
