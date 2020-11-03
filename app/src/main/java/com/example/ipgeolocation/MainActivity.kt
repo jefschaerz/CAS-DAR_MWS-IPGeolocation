@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -24,20 +26,36 @@ import kotlinx.android.synthetic.main.activity_main.*
 "query": "82.15.65.85" */
 data class IPLocationData(val query : String,
                           val status: String,
-                          val country: String)
+                          val country: String,
+                            val city : String)
 
 class MainActivity : AppCompatActivity()  {
     private val TAG = MainActivity::class.java.simpleName
-
+    private var textView: TextView? = null
     // Define fake Data :
-    val ipLocationData1 = IPLocationData("82.15.68.85", "success","Royaume-Uni")
+    val ipLocationData1 = IPLocationData("82.15.68.85", "success","Royaume-Uni", "Craignon")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         // Log :
         Log.i(TAG,"dans onCreate")
 
+        // Define components to use them
+        // either use  :
+        //        val button: Button = findViewById(R.id.buttonSearch)
+        // or direct if import kotlinx.... defined
+
+        // Define object to use
+        buttonSearch.setOnClickListener {
+            Log.d(TAG, "onClick: called")
+
+            // Display Results values
+            textViewResults.text="Results for IP: " + ipLocationData1.query.toString()
+            textViewCountryValue.text=(ipLocationData1.country.toString())
+            textViewCityValue.text=(ipLocationData1.city.toString())
+        }
     }
 
     override fun onStart() {

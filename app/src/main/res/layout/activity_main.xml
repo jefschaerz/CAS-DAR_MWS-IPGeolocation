@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextIPAddress">
 
         <TextView
-            android:id="@+id/editTextTextResults"
+            android:id="@+id/textViewResults"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
