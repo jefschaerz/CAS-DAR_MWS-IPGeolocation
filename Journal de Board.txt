@@ -1,14 +1,32 @@
-
+API Address :	https://ip-api.com/docs/api:json#test
+Kotlin fundamentals :	https://developer.android.com/codelabs/kotlin-android-training-constraint-layout#6
 
 
 Backlog :
 ---------
 
+TODO 0 : Create mockup de l'application
+TODO 0 : Test API et infos avec Postman : OK
+TODO 0 : Check IP range and validity
+TODO 0 : Check preview in landscape
+TODO 0 : Add basic components to test layout designer
+TODO 0 : Create table with fake value and display in components avec button clicked
+TODO 0 : Create second page and use intent to transmit infos
+TODO 0 : Save info and check if call received
+TODO 0 : Check for my IP address (see how to)
 
-TODO 0 : Test API et infos avec Postman
+
+26.10.2020 - 21h00 - 22h30
+--------------------
+
+- Add Mockups
+- Use Table Row to display infos
+- Add fak data for one location (before using api)
 
 
-26.10.2020 - 21h00
+
+
+26.10.2020 - 21h00 - 22h30
 --------------------
 
 - Create Mockups

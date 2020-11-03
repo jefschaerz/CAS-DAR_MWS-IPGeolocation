@@ -3,15 +3,41 @@ package com.example.ipgeolocation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+
+/* Simulate API response
+"status": "success",
+"country": "Royaume-Uni",
+"countryCode": "GB",
+"region": "NIR",
+"regionName": "Irlande du Nord",
+"city": "Craigavon",
+"zip": "BT66",
+"lat": 54.4471,
+"lon": -6.387,
+"timezone": "Europe/London",
+"isp": "Virgin Media",
+"org": "",
+"as": "AS5089 Virgin Media Limited",
+"query": "82.15.65.85" */
+data class IPLocationData(val query : String,
+                          val status: String,
+                          val country: String)
+
+class MainActivity : AppCompatActivity()  {
     private val TAG = MainActivity::class.java.simpleName
+
+    // Define fake Data :
+    val ipLocationData1 = IPLocationData("82.15.68.85", "success","Royaume-Uni")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         // Log :
         Log.i(TAG,"dans onCreate")
+
     }
 
     override fun onStart() {
@@ -45,8 +71,6 @@ class MainActivity : AppCompatActivity() {
         // Le Bundle est une class (court terme) qui a des méthodes pour sauver
        Log.i(TAG, "onSavedInstanceState called")
         super.onSaveInstanceState(savedInstanceState)
-
-
     }
 
     // Permet de récupérer après
