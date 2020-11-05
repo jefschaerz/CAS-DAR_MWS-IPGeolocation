@@ -1,5 +1,7 @@
 package com.example.ipgeolocation
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -47,14 +49,41 @@ class MainActivity : AppCompatActivity()  {
         //        val button: Button = findViewById(R.id.buttonSearch)
         // or direct if import kotlinx.... defined
 
-        // Define object to use
+        // Define Search button OnClick action
         buttonSearch.setOnClickListener {
-            Log.d(TAG, "onClick: called")
+            Log.d(TAG, "Search button onClick: called")
 
             // Display Results values
             textViewResults.text="Results for IP: " + ipLocationData1.query.toString()
             textViewCountryValue.text=(ipLocationData1.country.toString())
             textViewCityValue.text=(ipLocationData1.city.toString())
+        }
+
+        // Define Use from a List OnClick action
+        buttonFromList.setOnClickListener {
+            Log.d(TAG, "From list button onClick: called")
+
+            // Create intent for List activity
+            val intent = Intent(this, ListActivity::class.java)
+            intent.putExtra("MainIpAddress", editTextIPAddress.text.toString())
+            // Start activity and wait for result
+            startActivityForResult(intent, 1);
+        }
+    }
+    // redefine onActivityResult
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data!!.getIntExtra("result", 0)
+                Log.d(TAG, "Result received : " + result)
+                //editTextIPAddress.setText(result)
+                textView?.text = "defined"
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //editTextIPAddress.setText("undefined")
+                textView?.text = "undefined"
+            }
         }
     }
 
