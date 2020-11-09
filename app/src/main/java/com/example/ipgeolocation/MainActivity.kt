@@ -2,13 +2,17 @@ package com.example.ipgeolocation
 
 import android.app.Activity
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 /* Simulate API response
@@ -26,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 "org": "",
 "as": "AS5089 Virgin Media Limited",
 "query": "82.15.65.85" */
+
 data class IPLocationData(val query : String,
                           val status: String,
                           val country: String,
@@ -33,6 +38,7 @@ data class IPLocationData(val query : String,
 
 class MainActivity : AppCompatActivity()  {
     private val TAG = MainActivity::class.java.simpleName
+    private val RESULT_SELECTION = 0
     private var textView: TextView? = null
     // Define fake Data :
     val ipLocationData1 = IPLocationData("82.15.68.85", "success","Royaume-Uni", "Craignon")
@@ -44,13 +50,8 @@ class MainActivity : AppCompatActivity()  {
         // Log :
         Log.i(TAG,"dans onCreate")
 
-        // Define components to use them
-        // either use  :
-        //        val button: Button = findViewById(R.id.buttonSearch)
-        // or direct if import kotlinx.... defined
-
         // Define Search button OnClick action
-        buttonSearch.setOnClickListener {
+        /*buttonSearch.setOnClickListener {
             Log.d(TAG, "Search button onClick: called")
 
             // Display Results values
@@ -58,35 +59,108 @@ class MainActivity : AppCompatActivity()  {
             textViewCountryValue.text=(ipLocationData1.country.toString())
             textViewCityValue.text=(ipLocationData1.city.toString())
         }
+        */
+
 
         // Define Use from a List OnClick action
-        buttonFromList.setOnClickListener {
+        buttonUseFromList.setOnClickListener {
             Log.d(TAG, "From list button onClick: called")
 
             // Create intent for List activity
             val intent = Intent(this, ListActivity::class.java)
             intent.putExtra("MainIpAddress", editTextIPAddress.text.toString())
             // Start activity and wait for result
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, RESULT_SELECTION);
         }
     }
-    // redefine onActivityResult
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-                val result = data!!.getIntExtra("result", 0)
-                Log.d(TAG, "Result received : " + result)
-                //editTextIPAddress.setText(result)
-                textView?.text = "defined"
+
+    // ******************************************
+    /* Manage API by AsyncTask */
+    // ******************************************
+    fun callAPI (view: View){
+        val askAPIData = ContactAPI()
+        try {
+            val url = "http://ip-api.com/json/"
+            val chosenIP = editTextIPAddress.text.toString()
+            Log.d(TAG, "Start call to API with" + chosenIP)
+            askAPIData.execute(url+chosenIP)
+        } catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    inner class ContactAPI : AsyncTask<String, Void, String>() {
+
+        override fun doInBackground(vararg p0: String?): String {
+
+            var result = ""
+            var url: URL
+            val httpURLConnection: HttpURLConnection
+
+            try {
+                // Get info passed as parameter (AP UI URL and IP)
+                url = URL(p0[0])
+                httpURLConnection = url.openConnection() as HttpURLConnection
+                val inputStream = httpURLConnection.inputStream
+                val inputStreamReader = InputStreamReader(inputStream)
+
+                var data = inputStreamReader.read()
+
+                while (data > 0) {
+                    val character = data.toChar()
+                    result += character
+                    data = inputStreamReader.read()
+                }
+
+                return result
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return result
             }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                //editTextIPAddress.setText("undefined")
-                textView?.text = "undefined"
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+
+            try {
+
+                val jSONObject = JSONObject(result)
+                println(jSONObject)
+                val country = jSONObject.getString("country")
+                println(country)
+
+                textViewCountryValue.text = country
+
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
+    // ******************************************
+    /* Manage Activities */
+    // ******************************************
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d(TAG, "requestCode : " + requestCode)
+        Log.d(TAG, "resultCode : " + resultCode)
+        if (requestCode == RESULT_SELECTION) {
+            if (resultCode == RESULT_OK) {
+                val result = data!!.getStringExtra("result")
+                Log.d(TAG, "Result received : " + result)
+                editTextIPAddress.setText(result)
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                editTextIPAddress.setText("undefined")
+            }
+        }
+    }
+
+
+
+    // ******************************************
+    /* Manage LyfeCyle of Application */
+    // ******************************************
     override fun onStart() {
         Log.i(TAG, "dans onStart")
         super.onStart()

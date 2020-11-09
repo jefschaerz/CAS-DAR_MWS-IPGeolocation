@@ -1,29 +1,43 @@
 API Address :	https://ip-api.com/docs/api:json#test
 Kotlin fundamentals :	https://developer.android.com/codelabs/kotlin-android-training-constraint-layout#6
 
-
+Idée : - Fournir une adresse IP a un service API qui nous retournera différentes informations sur l'emplacement.
+	   - Ajouter des choix des IP par rapport à une liste éditable
+	   - Ev. Afficher Map
+	   
+	   
 Backlog :
 ---------
-
-TODO 0 : Create mockup de l'application
-TODO 0 : Test API et infos avec Postman : OK
+TODO 0 : Expliquer en détail dans Readme GitHub avec Maquette si besoin
+TODO 0 : Use API et save infos avec Postman
+TODO 1 : Save as Listadvanced (view)
+TODO 0 : Add new IP int the list (add)
 TODO 0 : Check IP range and validity
 TODO 0 : Check preview in landscape
 TODO 0 : Add basic components to test layout designer
-TODO 0 : Create table with fake value and display in components avec button clicked
-TODO 0 : Create second page and use intent to transmit infos
 TODO 0 : Save info and check if call received
 TODO 0 : Check for my IP address (see how to)
 
 
-26.10.2020 - 21h00 - 22h30
+Ma 12.11.2020 - 08h - 17h
+--------------------
+
+- 
+
+Ma 05.11.2020 - 13h00 - 16h30
+--------------------
+
+- Create second activity with "ListIP" in a ListBox and go back to main activity
+- Add list view with ip form ArrayOf String ()
+- On click use selected IP and send back to MainActivity
+
+
+Ma 27.10.2020 - 21h00 - 22h30
 --------------------
 
 - Add Mockups
 - Use Table Row to display infos
 - Add fak data for one location (before using api)
-
-
 
 
 26.10.2020 - 21h00 - 22h30
