@@ -9,12 +9,12 @@ Idée : - Fournir une adresse IP a un service API qui nous retournera différent
 Backlog :
 ---------
 TODO 0 : Expliquer en détail dans Readme GitHub avec Maquette si besoin
-TODO 0 : Use API et save infos avec Postman
+TODO 0 : Manage error is IP is out of bound
+TODO 0 : Get return info in Array 
 TODO 1 : Save as Listadvanced (view)
 TODO 0 : Add new IP int the list (add)
 TODO 0 : Check IP range and validity
 TODO 0 : Check preview in landscape
-TODO 0 : Add basic components to test layout designer
 TODO 0 : Save info and check if call received
 TODO 0 : Check for my IP address (see how to)
 
@@ -22,7 +22,8 @@ TODO 0 : Check for my IP address (see how to)
 Ma 12.11.2020 - 08h - 17h
 --------------------
 
-- 
+- Call API and receive data
+
 
 Ma 05.11.2020 - 13h00 - 16h30
 --------------------

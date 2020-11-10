@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_list.*
 
 class ListActivity : AppCompatActivity() {
     private val TAG = ListActivity::class.java.simpleName
-    val ipList = arrayOf<String>("82.78.49.255", "92.26.236.220", "81.246.23.87")
+    val ipList = arrayOf<String>("82.78.49.255", "192.168.27.254", "92.26.236.220", "81.246.23.87", "280.12.13.14")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
