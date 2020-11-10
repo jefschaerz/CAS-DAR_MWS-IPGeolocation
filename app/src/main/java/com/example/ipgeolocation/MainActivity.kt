@@ -61,31 +61,28 @@ class MainActivity : AppCompatActivity()  {
         // Log :
         Log.i(TAG, "dans onCreate")
 
+        // Setup interface (in fun ?)
+        textViewResults.text = "" ;
+
         // Define adapter for LocationInfos
         var locationInfosAdapter = LocationInfosAdapter(this, listIPLocationInfos)
         lvLocationInfos.adapter = locationInfosAdapter
 
-        // Define Search button OnClick action
+        // Define Try to locate  button OnClick action
         buttonSearch.setOnClickListener {
             // Clear previous attempt
-            textViewResults.text = "......"
+            textViewResults.text = "Searching......"
             listIPLocationInfos.clear();
-            Log.d(
-                TAG,
-                "Number in listIPLocationInfos : " + (listIPLocationInfos.count()).toString()
-            )
             val askAPIData = ContactAPI()
             try {
                 val url = "http://ip-api.com/json/"
                 val chosenIP = editTextIPAddress.text.toString()
-                Log.d(TAG, "Start call to API with IP: " + chosenIP)
-                askAPIData.execute(url + chosenIP)
+                val fields = "?fields=status,message,continent,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,query"
+                Log.d(TAG, "Start call to API with URL: " + url + chosenIP + fields)
+                askAPIData.execute(url + chosenIP + fields)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            locationInfosAdapter.notifyDataSetChanged()
-            Log.d(TAG, "Notification done")
-            //Log.d(TAG, "Query AFTER Search : " + (listIPLocationInfos[0].content))
         }
 
         // Define Use from a List OnClick action
@@ -96,10 +93,6 @@ class MainActivity : AppCompatActivity()  {
             intent.putExtra("MainIpAddress", editTextIPAddress.text.toString())
             // Start activity and wait for result
             startActivityForResult(intent, RESULT_SELECTION);
-
-            // TODO : Set as public to call after CALL API
-            //locationInfosAdapter.notifyDataSetChanged()
-
         }
     }
 
@@ -134,7 +127,7 @@ class MainActivity : AppCompatActivity()  {
                 vh = view.tag as ViewHolder
             }
 
-            vh.tvTitle.text = ipLocationInfosList[position].title
+            vh.tvTitle.text = (ipLocationInfosList[position].title)?.capitalize()
             vh.tvContent.text = ipLocationInfosList[position].content
 
             return view
@@ -165,26 +158,6 @@ class MainActivity : AppCompatActivity()  {
 
     public fun updateListview(){
 
-    }
-
-    // ******************************************
-    /* Manage API by AsyncTask */
-    // ******************************************
-    fun callAPI(view: View){
-        // Clear previous attempt
-        textViewResults.text="......"
-        listIPLocationInfos.clear();
-
-        Log.d(TAG, "Number in listIPLocationInfos : " + (listIPLocationInfos.count()).toString())
-        val askAPIData = ContactAPI()
-        try {
-            val url = "http://ip-api.com/json/"
-            val chosenIP = editTextIPAddress.text.toString()
-            Log.d(TAG, "Start call to API with IP: " + chosenIP)
-            askAPIData.execute(url + chosenIP)
-        } catch (e: Exception){
-            e.printStackTrace()
-        }
     }
 
     inner class ContactAPI : AsyncTask<String, Void, String>() {
@@ -231,38 +204,53 @@ class MainActivity : AppCompatActivity()  {
                    val status = jSONObject.getString("status")
                    val query = jSONObject.getString("query")
                    if (status == "success"){
-                        val country = jSONObject.getString("country")
-                        Log.d(TAG, "Country is:" + country)
 
+                       // Parse values received
                        val query = jSONObject.getString("query")
-                        textViewCountryValue.text = country
-                        textViewResults.text =  "Result for: " + query
-
+                       // Update label for results
+                       textViewResults.text =  "Results "+"(" + status + ")" + " for : " + query
+                       val continent = jSONObject.getString("continent")
+                       val country = jSONObject.getString("country")
+                       val countryCode = jSONObject.getString("countryCode")
                        val region = jSONObject.getString("region")
-                       textViewCountryValue.text = country
-                       textViewResults.text =  "Result for: " + query
+                       val regionName = jSONObject.getString("regionName")
+                       val city = jSONObject.getString("city")
+                       val zip = jSONObject.getString("zip")
+                       val lat = jSONObject.getString("lat")
+                       val lon = jSONObject.getString("lon")
+                       val timezone = jSONObject.getString("timezone")
+                       val isp = jSONObject.getString("isp")
 
                        // Set object with values
-                       //ipLocationDataFromAPI = IPLocationData(query, status, status, country, region )
                        Log.d(TAG, "Set listIPLocationInfos.. ")
                        listIPLocationInfos.add(IPLocationData(1, "query", query))
-                       listIPLocationInfos.add(IPLocationData(1, "country", country))
-                       listIPLocationInfos.add(IPLocationData(2, "region", region))
+                       listIPLocationInfos.add(IPLocationData(2, "continent", continent))
+                       listIPLocationInfos.add(IPLocationData(2, "country", country))
+                       listIPLocationInfos.add(IPLocationData(3, "countryCode", countryCode))
+                       listIPLocationInfos.add(IPLocationData(4, "region", region))
+                       listIPLocationInfos.add(IPLocationData(5, "regionName", regionName))
+                       listIPLocationInfos.add(IPLocationData(6, "city", city))
+                       listIPLocationInfos.add(IPLocationData(7, "zip", zip))
+                       listIPLocationInfos.add(IPLocationData(8, "lat", lat))
+                       listIPLocationInfos.add(IPLocationData(9, "lon", lon))
+                       listIPLocationInfos.add(IPLocationData(10, "timezone", timezone))
+                       listIPLocationInfos.add(IPLocationData(11, "isp", isp))
+
                        Log.d(
                            TAG,
                            "Number in listIPLocationInfos AFTER : " + (listIPLocationInfos.count()).toString()
                        )
-                       Log.d(TAG, "Query AFTER : " + (listIPLocationInfos[0].content))
-                       // update listvie info by the adapter
-                       (lvLocationInfos.adapter as BaseAdapter).notifyDataSetChanged()
                    }
 
                        else {
                        /* Failed */
                        val message = jSONObject.getString("message")
-                       textViewResults.text =  "Error for : " + query + " (" + message + ")"
+                       textViewResults.text =  "Error (" + message + ") " + "for : " + query
                        Log.d(TAG, "FAILED : " + message + " Query : " + query)
                        }
+
+                   // Update listvie info by the adapter in all case
+                   (lvLocationInfos.adapter as BaseAdapter).notifyDataSetChanged()
 
                 } catch (e: Exception) {
                     e.printStackTrace()
