@@ -11,4 +11,5 @@
     <string name="value">Value</string>
     <string name="use">Use</string>
     <string name="usemyip">Use my IP</string>
+    <string name="messageprovidedIPnotvalid">The IP address provided is not valid !</string>
 </resources>

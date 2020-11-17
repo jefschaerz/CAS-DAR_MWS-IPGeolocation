@@ -9,17 +9,20 @@ Idée : - Fournir une adresse IP a un service API qui nous retournera différent
 Backlog :
 ---------
 TODO 0 : Expliquer en détail dans Readme GitHub avec Maquette si besoin
-TODO 0 : Manage error if IP is out of bound or else
 TODO 0 : Get return info in Array 
-TODO 1 : IP Validator
-	https://www.geeksforgeeks.org/how-to-validate-an-ip-address-using-regular-expressions-in-java/
 TODO 1 : Save as Listadvanced (view)
 TODO 0 : Add new IP int the list (add)
 TODO 0 : Check IP range and validity
 TODO 0 : Check preview in landscape
 TODO 0 : Save info and check if call received
 TODO 0 : Check for my IP address (see how to)
+TODO 0 : Display locationon map in new activity
 
+
+Ma 17.11.2020 - 09h30 - 11h30
+--------------------
+
+- IP validator and message in case of invalid ip
 
 Ma 12.11.2020 - 08h - 15h30
 --------------------

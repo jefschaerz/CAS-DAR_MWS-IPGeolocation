@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity()  {
     private var ipLocationDataFromAPI : IPLocationData? = null
     private var listIPLocationInfos = ArrayList<IPLocationData>()
 
+
     // Define simulation Data :
     val ipLocationData1 = IPLocationDataLocal("82.15.68.85", "success", "Royaume-Uni", "Craignon")
 
@@ -68,20 +70,31 @@ class MainActivity : AppCompatActivity()  {
         var locationInfosAdapter = LocationInfosAdapter(this, listIPLocationInfos)
         lvLocationInfos.adapter = locationInfosAdapter
 
-        // Define Try to locate  button OnClick action
+        // Define Try to locate button OnClick action
         buttonSearch.setOnClickListener {
-            // Clear previous attempt
-            textViewResults.text = "Searching......"
-            listIPLocationInfos.clear();
-            val askAPIData = ContactAPI()
-            try {
-                val url = "http://ip-api.com/json/"
-                val chosenIP = editTextIPAddress.text.toString()
-                val fields = "?fields=status,message,continent,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,query"
-                Log.d(TAG, "Start call to API with URL: " + url + chosenIP + fields)
-                askAPIData.execute(url + chosenIP + fields)
-            } catch (e: Exception) {
-                e.printStackTrace()
+            // Check if IP is valid
+            Log.d(TAG, "Try to locate onClick: called")
+            val  isValidIP = IPAddressValidation.isValidIPAddress(editTextIPAddress.text.toString()) ;
+            Log.d(TAG, "IP :" + editTextIPAddress.text.toString())
+            if (!isValidIP)
+                // IP NOT Valid --> Inform user by Toast
+                Toast.makeText(this, String.format(getString(R.string.messageprovidedIPnotvalid)), Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "The IP address provided is not valid !", Toast.LENGTH_SHORT).show()
+            else {
+                // IP valid --> Ask the API
+                // Clear previous attempt
+                textViewResults.text = "Searching......"
+                listIPLocationInfos.clear();
+                val askAPIData = ContactAPI()
+                try {
+                    val url = "http://ip-api.com/json/"
+                    val chosenIP = editTextIPAddress.text.toString()
+                    val fields = "?fields=status,message,continent,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,query"
+                    Log.d(TAG, "Start call to API with URL: " + url + chosenIP + fields)
+                    askAPIData.execute(url + chosenIP + fields)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
 
@@ -94,6 +107,16 @@ class MainActivity : AppCompatActivity()  {
             // Start activity and wait for result
             startActivityForResult(intent, RESULT_SELECTION);
         }
+
+        // Define Use My IP OnClick action
+        buttonUseMyIP.setOnClickListener {
+            Log.d(TAG, "Use my IP button onClick: called")
+            // Create intent for List activity
+            val  isValidIP = IPAddressValidation.isValidIPAddress(editTextIPAddress.text.toString()) ;
+            Log.d(TAG, "IP :" + editTextIPAddress.text.toString())
+            if (!isValidIP)
+                Toast.makeText(this, "The IP address provided is not valid !", Toast.LENGTH_SHORT).show()
+256        }
     }
 
 
