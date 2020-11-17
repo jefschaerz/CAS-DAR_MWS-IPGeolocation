@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity()  {
 
         // Setup interface (in fun ?)
         textViewResults.text = "" ;
+        linearLayoutValues.setVisibility(View.INVISIBLE)
 
         // Define adapter for LocationInfos
         var locationInfosAdapter = LocationInfosAdapter(this, listIPLocationInfos)
@@ -227,7 +228,8 @@ class MainActivity : AppCompatActivity()  {
                    val status = jSONObject.getString("status")
                    val query = jSONObject.getString("query")
                    if (status == "success"){
-
+                       // SHOW display panel
+                       linearLayoutValues.setVisibility(View.VISIBLE)
                        // Parse values received
                        val query = jSONObject.getString("query")
                        // Update label for results
@@ -265,6 +267,9 @@ class MainActivity : AppCompatActivity()  {
 
                        else {
                        /* Failed */
+                       // Hide Values Header panel
+                       linearLayoutValues.setVisibility(View.INVISIBLE)
+
                        val message = jSONObject.getString("message")
                        textViewResults.text =  "Error (" + message + ") " + "for : " + query
                        Log.d(TAG, "FAILED : " + message + " Query : " + query)
