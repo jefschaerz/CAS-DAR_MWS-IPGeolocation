@@ -1,5 +1,6 @@
 package com.example.ipgeolocation
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -17,6 +18,7 @@ import org.json.JSONObject
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.collections.ArrayList
 
 /* Simulate API response
 "status": "success",
@@ -55,6 +57,7 @@ class MainActivity : AppCompatActivity()  {
     // Define simulation Data :
     val ipLocationData1 = IPLocationDataLocal("82.15.68.85", "success", "Royaume-Uni", "Craignon")
 
+    @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -80,7 +83,6 @@ class MainActivity : AppCompatActivity()  {
             if (!isValidIP)
                 // IP NOT Valid --> Inform user by Toast
                 Toast.makeText(this, String.format(getString(R.string.messageprovidedIPnotvalid)), Toast.LENGTH_SHORT).show()
-                //Toast.makeText(this, "The IP address provided is not valid !", Toast.LENGTH_SHORT).show()
             else {
                 // IP valid --> Ask the API
                 // Clear previous attempt
@@ -113,11 +115,30 @@ class MainActivity : AppCompatActivity()  {
         buttonUseMyIP.setOnClickListener {
             Log.d(TAG, "Use my IP button onClick: called")
             // Create intent for List activity
-            val  isValidIP = IPAddressValidation.isValidIPAddress(editTextIPAddress.text.toString()) ;
+            /*val  isValidIP = IPAddressValidation.isValidIPAddress(editTextIPAddress.text.toString()) ;
             Log.d(TAG, "IP :" + editTextIPAddress.text.toString())
             if (!isValidIP)
                 Toast.makeText(this, "The IP address provided is not valid !", Toast.LENGTH_SHORT).show()
-256        }
+                */
+            /* - Method 1
+            val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+            val ipAddress: String = wifiManager.connectionInfo.ipAddress.toString()
+            Log.d(TAG, "Your Device IP Address: $ipAddress") */
+    }
+
+        // Define See on Map OnClick action
+        buttonMap.setOnClickListener {
+            Log.d(TAG, "Use see on map button onClick: called")
+            // Create intent for List activity
+            val intent = Intent(this, MapsActivity::class.java)
+            // TODO : get info from API results
+            intent.putExtra("CurrentLocation", "Renan")
+            intent.putExtra("Lat", "47.1")
+            intent.putExtra("Lng", "18.0")
+            // Start activity
+            startActivity(intent);
+
+        }
     }
 
 
@@ -304,7 +325,7 @@ class MainActivity : AppCompatActivity()  {
     }
 
     // ******************************************
-    /* Manage LyfeCyle of Application */
+    /* Manage LifeCyle of Application */
     // ******************************************
     override fun onStart() {
         Log.i(TAG, "dans onStart")
@@ -337,6 +358,7 @@ class MainActivity : AppCompatActivity()  {
         // Le Bundle est une class (court terme) qui a des méthodes pour sauver
        Log.i(TAG, "onSavedInstanceState called")
         super.onSaveInstanceState(savedInstanceState)
+        //TODO : Save IP address written in the field
     }
 
     // Permet de récupérer après
@@ -345,6 +367,7 @@ class MainActivity : AppCompatActivity()  {
         //Essaye de récupérer un compteur et voir s'il est conservé après le on stop..
         Log.i(TAG, "onRestoreInstanceState")
          super.onRestoreInstanceState(savedInstanceState)
+        //TODO : Restored IP address written in the field
         //val savedString = savedInstanceState.getString(TEXT_CONTENTS, "")
 
     }

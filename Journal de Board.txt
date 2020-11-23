@@ -5,24 +5,40 @@ Idée : - Fournir une adresse IP a un service API qui nous retournera différent
 	   - Ajouter des choix des IP par rapport à une liste éditable
 	   - Ev. Afficher Map
 	   
+Questions :
+------------
+- Use retrofit to avoid parsing every value ?
+- Library to display map according to Lat-Long
+
 	   
 Backlog :
 ---------
+TODO 0 : Use bundle to save info (IP address) on screen rotation
 TODO 0 : Expliquer en détail dans Readme GitHub avec Maquette si besoin
 TODO 0 : Get return info in Array 
-TODO 1 : Save as Listadvanced (view)
 TODO 0 : Add new IP int the list (add)
 TODO 0 : Check IP range and validity
 TODO 0 : Check preview in landscape
 TODO 0 : Save info and check if call received
 TODO 0 : Check for my IP address (see how to)
-TODO 0 : Display locationon map in new activity
+TODO 1 : Select some options like (language, filter on info,..)
+TODO 0 : Display location on map in new activity
+TODO 1 : Contrôler si connectivité web dispo (voir pdf connectivity..)
+TODO 1 : Save as Listadvanced (view)
 
+
+
+Ma 23.11.2020 - 19h30 - 21h30
+--------------------
+
+- Add Maps activity
+	Create API Key for google maps for JFS : AIzaSyC2j_U-8OlJlVIc0EUFTG7WkKblP2WmFik
 
 Ma 17.11.2020 - 09h30 - 11h30
 --------------------
 
 - IP validator and message in case of invalid ip
+- Improve display of values and add button for See on map
 
 Ma 12.11.2020 - 08h - 15h30
 --------------------

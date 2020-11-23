@@ -13,4 +13,5 @@
     <string name="usemyip">Use my IP</string>
     <string name="seeonmap">see on map</string>
     <string name="messageprovidedIPnotvalid">The IP address provided is not valid !</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
