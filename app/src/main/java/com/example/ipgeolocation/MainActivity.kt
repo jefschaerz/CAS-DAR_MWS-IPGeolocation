@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -53,9 +54,8 @@ class MainActivity : AppCompatActivity()  {
     private var ipLocationDataFromAPI : IPLocationData? = null
     private var listIPLocationInfos = ArrayList<IPLocationData>()
 
-
     // Define simulation Data :
-    val ipLocationData1 = IPLocationDataLocal("82.15.68.85", "success", "Royaume-Uni", "Craignon")
+    // val ipLocationData1 = IPLocationDataLocal("82.15.68.85", "success", "Royaume-Uni", "Craignon")
 
     @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity()  {
         setContentView(R.layout.activity_main)
 
         title = "IP Locator App by JFS"
-        // Log :
         Log.i(TAG, "dans onCreate")
 
         // Setup interface (in fun ?)
@@ -74,6 +73,18 @@ class MainActivity : AppCompatActivity()  {
         var locationInfosAdapter = LocationInfosAdapter(this, listIPLocationInfos)
         lvLocationInfos.adapter = locationInfosAdapter
 
+
+        // Reload last IP address used
+        // Get handle to shared preferences and load last IP Address used
+        val sharedPref = this?.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val defaultValue = resources.getString(R.string.last_ip_used_default)
+        Log.i(TAG, "Value default : " + defaultValue)
+        editTextIPAddress.setText(sharedPref.getString(getString(R.string.last_ip_used), defaultValue))
+        Log.i(TAG, "Value : " + editTextIPAddress.text.toString() )
+
+        // Load data fro IP list
+        loadIPListData
         // Define Try to locate button OnClick action
         buttonSearch.setOnClickListener {
             // Check if IP is valid
@@ -128,22 +139,36 @@ class MainActivity : AppCompatActivity()  {
 
         // Define See on Map OnClick action
         buttonMap.setOnClickListener {
+            var LngToUse: String? = "0"
+            var LatToUse: String? = "0"
+            var CityToUse: String? = "Unknown"
+
             Log.d(TAG, "Use see on map button onClick: called")
             // Create intent for List activity
             val intent = Intent(this, MapsActivity::class.java)
-            // TODO : get info from API results
-            intent.putExtra("CurrentLocation", "Renan")
-            intent.putExtra("Lat", "47.1")
-            intent.putExtra("Lng", "18.0")
-            // Start activity
-            startActivity(intent);
 
+            // Search for lat and lng in listIPLocationInfos
+            listIPLocationInfos!!.forEach { value ->
+                if (value.title == "lon") {
+                    LngToUse = value.content
+                }
+                if (value.title == "lat") {
+                    LatToUse = value.content
+                }
+                if (value.title == "city") {
+                    CityToUse = value.content
+                }
+            }
+            intent.putExtra("CurrentLocation", CityToUse)
+            intent.putExtra("Lat", LatToUse)
+            intent.putExtra("Lng", LngToUse)
+            startActivity(intent);
         }
     }
 
 
     // ******************************************
-    /* Manage Adapter for the list of API info */
+    /* Manage adapter for the list of API info */
     // ******************************************
     inner class LocationInfosAdapter : BaseAdapter {
 
@@ -339,6 +364,14 @@ class MainActivity : AppCompatActivity()  {
 
     override fun onPause() {
         Log.i(TAG, "dans onPause")
+        // Get handle to shared preferences
+        val sharedPref = this?.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putString(getString(R.string.last_ip_used), editTextIPAddress.text.toString())
+            apply()
+        }
+
         super.onPause()
     }
 

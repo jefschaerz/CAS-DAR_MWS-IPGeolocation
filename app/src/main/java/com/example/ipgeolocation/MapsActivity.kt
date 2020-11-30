@@ -14,8 +14,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val TAG = MapsActivity::class.java.simpleName
     private lateinit var mMap: GoogleMap
-    private lateinit var LocationName : String
-    private var LocationLatDouble = 47.0
+    private var receivedLocation = "Unknown"
+    private var locationLatDouble = 47.0
     private var LocationLngDouble = -8.41
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,18 +26,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        // Get Location and lat, long
-        LocationName = intent.getStringExtra("CurrentLocation").toString()
+        // Get Location and lat, long from Main activity
+        receivedLocation = intent.getStringExtra("CurrentLocation").toString()
+        //receivedLocation = LocationName.toString()
         // Receive as string to display
-        val LocationLat = intent.getStringExtra("Lat")
-        val LocationLng = intent.getStringExtra("Lng")
-        Log.d(TAG, "Your Device IP Address: "+ LocationLat + " - " + LocationLng)
-        if (LocationLat != null) {
-            LocationLatDouble = LocationLat?.toDouble()
-        }
-        if (LocationLng != null) {
-            LocationLngDouble = LocationLng?.toDouble()
-        }
+        locationLatDouble = intent.getStringExtra("Lat")!!.toDouble()
+        LocationLngDouble = intent.getStringExtra("Lng")!!.toDouble()
+        Log.d(TAG, "After : "+ receivedLocation + " - "+ locationLatDouble + " - " + LocationLngDouble)
     }
 
     /**
@@ -52,12 +47,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val currentloc = LatLng(LocationLatDouble, LocationLngDouble)
-        mMap.addMarker(MarkerOptions().position(currentloc).title(LocationName))
+        // Add a marker on camera and move the camera
+        val currentloc = LatLng(locationLatDouble, LocationLngDouble)
+        mMap.addMarker(MarkerOptions().position(currentloc).title(receivedLocation + " (Lat:" + locationLatDouble.toString() + " - Lng:" + LocationLngDouble.toString() + ")" ))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentloc))
-
         // Zoom of 5x
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentloc, 5f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentloc, 10f))
+        // Add button to zoom in /out ?
     }
 }

@@ -4,35 +4,59 @@ Kotlin fundamentals :	https://developer.android.com/codelabs/kotlin-android-trai
 Idée : - Fournir une adresse IP a un service API qui nous retournera différentes informations sur l'emplacement.
 	   - Ajouter des choix des IP par rapport à une liste éditable
 	   - Ev. Afficher Map
+
+Ordre Projets Teams..	
+Vial
+Raboud
+
+   
 	   
 Questions :
 ------------
 - Use retrofit to avoid parsing every value ?
 - Library to display map according to Lat-Long
-
+- Var : multiple changes / Val : final constantes
 	   
 Backlog :
 ---------
-TODO 0 : Use bundle to save info (IP address) on screen rotation
+
+TODO 0 : Use bundle to save info (IP address and all others) on screen rotation
+
+TODO 1 : Check for my IP address (see how to)
 TODO 0 : Expliquer en détail dans Readme GitHub avec Maquette si besoin
 TODO 0 : Get return info in Array 
-TODO 0 : Add new IP int the list (add)
-TODO 0 : Check IP range and validity
+TODO 0 : Add new IP into the list (add instead of use)
 TODO 0 : Check preview in landscape
-TODO 0 : Save info and check if call received
-TODO 0 : Check for my IP address (see how to)
+			Save info and check if call received
+			Scroll on landscape 
 TODO 1 : Select some options like (language, filter on info,..)
-TODO 0 : Display location on map in new activity
+TODO 1 : Save info and preferences in Storage : 
+			https://www.youtube.com/watch?v=jcliHGR3CHo
+			https://www.youtube.com/watch?v=TsASX0ZK9ak
+			https://www.youtube.com/watch?v=S5uLAGnBvUY
+			https://www.youtube.com/watch?v=fJEFZ6EOM9o (avec switch)
+			
+			https://stackoverflow.com/questions/10127396/save-values-before-close-the-app
+			https://developer.android.com/guide/topics/ui/settings/use-saved-values)
+			https://developer.android.com/training/data-storage/shared-preferences
+
 TODO 1 : Contrôler si connectivité web dispo (voir pdf connectivity..)
 TODO 1 : Save as Listadvanced (view)
+TODO 1 : Add zoom button on Map
 
 
+Ma 23.11.2020 - 19h30 - 21h30
+--------------------
+- Add save IP address in SharedPreferences onPause and load onStart
+- Fix City name display on marker
 
 Ma 23.11.2020 - 19h30 - 21h30
 --------------------
 
 - Add Maps activity
 	Create API Key for google maps for JFS : AIzaSyC2j_U-8OlJlVIc0EUFTG7WkKblP2WmFik
+- Add info passed to Map for the marker : OK
+
 
 Ma 17.11.2020 - 09h30 - 11h30
 --------------------

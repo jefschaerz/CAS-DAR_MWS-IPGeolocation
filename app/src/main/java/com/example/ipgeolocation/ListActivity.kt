@@ -10,14 +10,19 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_list.*
 
-
-
 class ListActivity : AppCompatActivity() {
     private val TAG = ListActivity::class.java.simpleName
+    // TODO : Create list with IP and infos See TEstListElargi
     val ipList = arrayOf<String>("82.78.49.255", "192.168.27.254", "92.26.236.220", "81.246.23.87", "280.12.13.14", "178.197.249.50")
+    var ipListComments = ArrayList<IpListComments>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
+
+        // Create list of IP
+        ipListComments.add(IpListComments("92.26.236.220", "Sheffield UK"))
+        ipListComments.add(IpListComments("81.246.23.87", "Liège BE"))
 
         // Define action Bar to return manually to Main activity
         val actionBar = supportActionBar
@@ -28,9 +33,12 @@ class ListActivity : AppCompatActivity() {
         val currentIP = intent.getStringExtra("MainIpAddress")
         editTextIPAddressFromList.setText(currentIP)
 
+
         // Define adapter for the list of ip address
         val arrayAdapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,ipList)
+        //val arrayAdapterNew = ArrayAdapter<IpListComments>(this,android.R.layout.simple_list_item_1,ipListComments)
         listView.adapter = arrayAdapter
+
         // Define onclick Action
         listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
             val resultIntent = Intent()
