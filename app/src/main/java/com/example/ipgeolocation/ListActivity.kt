@@ -1,18 +1,16 @@
 package com.example.ipgeolocation
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_list.*
 
 class ListActivity : AppCompatActivity() {
     private val TAG = ListActivity::class.java.simpleName
-    // TODO : Create list with IP and infos See TEstListElargi
+    // TODO : Create list with IP and infos (See TestListElargi)
     val ipList = arrayOf<String>("82.78.49.255", "192.168.27.254", "92.26.236.220", "81.246.23.87", "280.12.13.14", "178.197.249.50")
     var ipListComments = ArrayList<IpListComments>()
 
@@ -33,14 +31,14 @@ class ListActivity : AppCompatActivity() {
         val currentIP = intent.getStringExtra("MainIpAddress")
         editTextIPAddressFromList.setText(currentIP)
 
-
         // Define adapter for the list of ip address
         val arrayAdapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,ipList)
-        //val arrayAdapterNew = ArrayAdapter<IpListComments>(this,android.R.layout.simple_list_item_1,ipListComments)
-        listView.adapter = arrayAdapter
+        val arrayAdapterFull = ArrayAdapter<IpListComments>(this,android.R.layout.simple_list_item_1,ipListComments)
+        listViewSimple.adapter = arrayAdapter
+        listViewComments.adapter = arrayAdapterFull
 
         // Define onclick Action
-        listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
+        listViewSimple.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
             val resultIntent = Intent()
             resultIntent.putExtra("result", adapterView.getItemAtPosition(position) as String)
             setResult(RESULT_OK, resultIntent)

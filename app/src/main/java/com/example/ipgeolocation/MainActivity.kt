@@ -4,7 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
+import android.net.wifi.WifiInfo
+import android.net.wifi.WifiManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -19,7 +20,9 @@ import org.json.JSONObject
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.*
 import kotlin.collections.ArrayList
+
 
 /* Simulate API response
 "status": "success",
@@ -39,6 +42,11 @@ import kotlin.collections.ArrayList
 "query": "82.15.65.85" */
 
 /* Result from API : https://ip-api.com/docs/api:json#test */
+
+const val URL_API = "http://ip-api.com/json/"
+const val SHAREDPREF = "SharedPrefs"
+const val LASTIPUSED = "LastIPUsed"
+const val LASTIPUSED_DEFAULT = "87.88.89.90"
 
 data class IPLocationDataLocal(
     val query: String,
@@ -75,13 +83,17 @@ class MainActivity : AppCompatActivity()  {
 
         // Define Try to locate button OnClick action
         buttonSearch.setOnClickListener {
-            // Check if IP is valid
             Log.d(TAG, "Try to locate onClick: called")
-            val  isValidIP = IPAddressValidation.isValidIPAddress(editTextIPAddress.text.toString()) ;
+            // Check if IP is valid
+            val isValidIP = IPAddressValidation.isValidIPAddress(editTextIPAddress.text.toString()) ;
             Log.d(TAG, "IP :" + editTextIPAddress.text.toString())
             if (!isValidIP)
                 // IP NOT Valid --> Inform user by Toast
-                Toast.makeText(this, String.format(getString(R.string.messageprovidedIPnotvalid)), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    String.format(getString(R.string.messageprovidedIPnotvalid)),
+                    Toast.LENGTH_SHORT
+                ).show()
             else {
                 // IP valid --> Ask the API
                 // Clear previous attempt
@@ -89,7 +101,7 @@ class MainActivity : AppCompatActivity()  {
                 listIPLocationInfos.clear();
                 val askAPIData = ContactAPI()
                 try {
-                    val url = "http://ip-api.com/json/"
+                    val url = URL_API
                     val chosenIP = editTextIPAddress.text.toString()
                     val fields = "?fields=status,message,continent,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,query"
                     Log.d(TAG, "Start call to API with URL: " + url + chosenIP + fields)
@@ -113,16 +125,6 @@ class MainActivity : AppCompatActivity()  {
         // Define Use My IP OnClick action
         buttonUseMyIP.setOnClickListener {
             Log.d(TAG, "Use my IP button onClick: called")
-            // Create intent for List activity
-            /*val  isValidIP = IPAddressValidation.isValidIPAddress(editTextIPAddress.text.toString()) ;
-            Log.d(TAG, "IP :" + editTextIPAddress.text.toString())
-            if (!isValidIP)
-                Toast.makeText(this, "The IP address provided is not valid !", Toast.LENGTH_SHORT).show()
-                */
-            /* - Method 1
-            val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-            val ipAddress: String = wifiManager.connectionInfo.ipAddress.toString()
-            Log.d(TAG, "Your Device IP Address: $ipAddress") */
         }
 
         // Define See on Map OnClick action
@@ -163,23 +165,28 @@ class MainActivity : AppCompatActivity()  {
 
     private fun loadData(){
         // Get handle to shared preferences
-        val sharedPref = this?.getSharedPreferences(
-            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val defaultValue = resources.getString(R.string.last_ip_used_default)
+        val sharedPref = this?.getSharedPreferences(SHAREDPREF, Context.MODE_PRIVATE
+        )
+        val defaultValue = LASTIPUSED_DEFAULT
         Log.i(TAG, "Value default : " + defaultValue)
-        // Last IPAddress
-        editTextIPAddress.setText(sharedPref.getString(getString(R.string.last_ip_used), defaultValue))
-        // GSON for
-        Log.i(TAG, "Value : " + editTextIPAddress.text.toString() )
+        // Retrieve last IPAddress
+        editTextIPAddress.setText(
+            sharedPref.getString(LASTIPUSED,
+                defaultValue
+            )
+        )
+        // Use GSON for list of IP
+        Log.i(TAG, "Value : " + editTextIPAddress.text.toString())
     }
 
     private fun saveData(){
         // Get handle to shared preferences
         val sharedPref = this?.getSharedPreferences(
-            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        with (sharedPref.edit()) {
+            SHAREDPREF, Context.MODE_PRIVATE
+        )
+        with(sharedPref.edit()) {
             // Last IPAddress
-            putString(getString(R.string.last_ip_used), editTextIPAddress.text.toString())
+            putString(LASTIPUSED, editTextIPAddress.text.toString())
             // List of IP address defined
             apply()
         }
@@ -197,18 +204,17 @@ class MainActivity : AppCompatActivity()  {
             this.context = context
         }
 
-        // Necessary to define methods
+        // Necessary to redefine methods
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-
             val view: View?
             val vh: ViewHolder
 
             if (convertView == null) {
-                // Link the accorgnind view to the holder
+                // Link the according view to the holder
                 view = layoutInflater.inflate(R.layout.locationinfos, parent, false)
                 vh = ViewHolder(view)
                 view.tag = vh
-                Log.i("JSA", "set Tag for ViewHolder, position: " + position)
+                // Log.i("TAG", "set Tag for ViewHolder, position: " + position)
             } else {
                 view = convertView
                 vh = view.tag as ViewHolder
@@ -242,11 +248,9 @@ class MainActivity : AppCompatActivity()  {
             this.tvContent = view?.findViewById(R.id.textViewValue) as TextView
         }
     }
-
-    public fun updateListview(){
-
-    }
-
+    // ******************************************
+    /* Async Task for API contact */
+    // ******************************************
     inner class ContactAPI : AsyncTask<String, Void, String>() {
 
         override fun doInBackground(vararg p0: String?): String?{
@@ -256,7 +260,7 @@ class MainActivity : AppCompatActivity()  {
             val httpURLConnection: HttpURLConnection
 
             try {
-                // Get info passed as parameter (AP UI URL and IP)
+                // Get info passed as parameter (API URL and IP)
                 url = URL(p0[0])
                 httpURLConnection = url.openConnection() as HttpURLConnection
                 if (httpURLConnection.responseCode == HttpURLConnection.HTTP_OK) {
@@ -361,7 +365,7 @@ class MainActivity : AppCompatActivity()  {
                 editTextIPAddress.setText(result)
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                editTextIPAddress.setText("undefined")
+                // Do not change previous values
             }
         }
     }
@@ -381,6 +385,7 @@ class MainActivity : AppCompatActivity()  {
 
     override fun onPause() {
         Log.i(TAG, "dans onPause")
+        // Save to SharedPreferences
         saveData()
         super.onPause()
     }
