@@ -73,18 +73,6 @@ class MainActivity : AppCompatActivity()  {
         var locationInfosAdapter = LocationInfosAdapter(this, listIPLocationInfos)
         lvLocationInfos.adapter = locationInfosAdapter
 
-
-        // Reload last IP address used
-        // Get handle to shared preferences and load last IP Address used
-        val sharedPref = this?.getSharedPreferences(
-            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val defaultValue = resources.getString(R.string.last_ip_used_default)
-        Log.i(TAG, "Value default : " + defaultValue)
-        editTextIPAddress.setText(sharedPref.getString(getString(R.string.last_ip_used), defaultValue))
-        Log.i(TAG, "Value : " + editTextIPAddress.text.toString() )
-
-        // Load data fro IP list
-        loadIPListData
         // Define Try to locate button OnClick action
         buttonSearch.setOnClickListener {
             // Check if IP is valid
@@ -135,7 +123,7 @@ class MainActivity : AppCompatActivity()  {
             val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
             val ipAddress: String = wifiManager.connectionInfo.ipAddress.toString()
             Log.d(TAG, "Your Device IP Address: $ipAddress") */
-    }
+        }
 
         // Define See on Map OnClick action
         buttonMap.setOnClickListener {
@@ -164,9 +152,38 @@ class MainActivity : AppCompatActivity()  {
             intent.putExtra("Lng", LngToUse)
             startActivity(intent);
         }
+
+        // Load data from SharedPreferences
+        loadData()
     }
 
+    // ******************************************
+    /* Load ans Sve Data in SharedPreferences */
+    // ******************************************
 
+    private fun loadData(){
+        // Get handle to shared preferences
+        val sharedPref = this?.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val defaultValue = resources.getString(R.string.last_ip_used_default)
+        Log.i(TAG, "Value default : " + defaultValue)
+        // Last IPAddress
+        editTextIPAddress.setText(sharedPref.getString(getString(R.string.last_ip_used), defaultValue))
+        // GSON for
+        Log.i(TAG, "Value : " + editTextIPAddress.text.toString() )
+    }
+
+    private fun saveData(){
+        // Get handle to shared preferences
+        val sharedPref = this?.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            // Last IPAddress
+            putString(getString(R.string.last_ip_used), editTextIPAddress.text.toString())
+            // List of IP address defined
+            apply()
+        }
+    }
     // ******************************************
     /* Manage adapter for the list of API info */
     // ******************************************
@@ -364,14 +381,7 @@ class MainActivity : AppCompatActivity()  {
 
     override fun onPause() {
         Log.i(TAG, "dans onPause")
-        // Get handle to shared preferences
-        val sharedPref = this?.getSharedPreferences(
-            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        with (sharedPref.edit()) {
-            putString(getString(R.string.last_ip_used), editTextIPAddress.text.toString())
-            apply()
-        }
-
+        saveData()
         super.onPause()
     }
 
