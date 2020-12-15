@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Define Application name displayed
         title = "IP Locator App by JFS"
         Log.i(TAG, "dans onCreate")
 
@@ -122,11 +123,6 @@ class MainActivity : AppCompatActivity()  {
             startActivityForResult(intent, RESULT_SELECTION);
         }
 
-        // Define Use My IP OnClick action
-        buttonUseMyIP.setOnClickListener {
-            Log.d(TAG, "Use my IP button onClick: called")
-        }
-
         // Define See on Map OnClick action
         buttonMap.setOnClickListener {
             var LngToUse: String? = "0"
@@ -160,13 +156,11 @@ class MainActivity : AppCompatActivity()  {
     }
 
     // ******************************************
-    /* Load ans Sve Data in SharedPreferences */
+    /* Load and Save Data in SharedPreferences */
     // ******************************************
-
     private fun loadData(){
         // Get handle to shared preferences
-        val sharedPref = this?.getSharedPreferences(SHAREDPREF, Context.MODE_PRIVATE
-        )
+        val sharedPref = this?.getSharedPreferences(SHAREDPREF, Context.MODE_PRIVATE)
         val defaultValue = LASTIPUSED_DEFAULT
         Log.i(TAG, "Value default : " + defaultValue)
         // Retrieve last IPAddress
@@ -290,6 +284,7 @@ class MainActivity : AppCompatActivity()  {
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
                try {
+                   // Create JSON object with the result to parse it later and extract data
                    val jSONObject = JSONObject(result)
                    println(jSONObject)
                    val status = jSONObject.getString("status")
@@ -342,7 +337,7 @@ class MainActivity : AppCompatActivity()  {
                        Log.d(TAG, "FAILED : " + message + " Query : " + query)
                        }
 
-                   // Update listvie info by the adapter in all case
+                   // Update listview info by the adapter in all case
                    (lvLocationInfos.adapter as BaseAdapter).notifyDataSetChanged()
 
                 } catch (e: Exception) {

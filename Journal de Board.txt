@@ -67,7 +67,8 @@ For presentation
 Ma 15.12.2020 - 08h30 - 10h-30
 --------------------
 
-- 
+- Change design Main Activity
+- Use IP and comments in Listactivity with Linear Layout
 
 Ma 23.11.2020 - 19h30 - 21h30
 --------------------

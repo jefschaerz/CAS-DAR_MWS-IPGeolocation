@@ -1,6 +1,6 @@
 package com.example.ipgeolocation
 
-class IpListComments {
+class IpListComment {
     var ipAddress: String? = null
     var comments: String? = null
 

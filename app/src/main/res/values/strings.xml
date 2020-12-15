@@ -14,4 +14,8 @@
     <string name="seeonmap">see on map</string>
     <string name="messageprovidedIPnotvalid">The IP address provided is not valid !</string>
     <string name="title_activity_maps">Map</string>
- </resources>
+    <string name="add_ip_to_list">Add this IP to the list</string>
+    <string name="comment">Comment</string>
+    <string name="new_ip_address">New IP address</string>
+
+</resources>
