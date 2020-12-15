@@ -4,13 +4,7 @@ Kotlin fundamentals :	https://developer.android.com/codelabs/kotlin-android-trai
 Idée : - Fournir une adresse IP a un service API qui nous retournera différentes informations sur l'emplacement.
 	   - Ajouter des choix des IP par rapport à une liste éditable
 	   - Ev. Afficher Map
-
-Ordre Projets Teams..	
-Vial
-Raboud
-
-   
-	   
+    
 Questions :
 ------------
 - Use retrofit to avoid parsing every value ?
@@ -19,16 +13,26 @@ Questions :
 	   
 Backlog :
 ---------
-TODO 0 : Expliquer en détail dans Readme GitHub avec Maquette si besoin et PPT
+TODO 0 : Expliquer en détail dans Readme.md GitHub avec Maquette si besoin et PPT
+TODO 0 : Créer Powerpoint depuis XML
+
 TODO 0 : Use bundle to save info (IP address and all others) on screen rotation
 TODO 0 : Get return info in ArrayList to be able to show only returned values (filtered)
+
+TODO 0 : Select some options like (language, filter on info,..)
+			Add Settings activity (see how to !! (fragment))
+			
+			Use SharedPreferences save as the list
+			--> Not USeFUL
 TODO 0 : Add new IP into the list (add instead of use)
 TODO 0 : Check preview in landscape
 			Save info and check if call received
 			Scroll on landscape 
-TODO 1 : Select some options like (language, filter on info,..)
-			Add Settings activity (see how to !! (fragement))
-			Use SharedPreferencest save as the list
+			
+TODO 0 : Improve design like	
+			https://play.google.com/store/apps/details?id=net.bigdatacloud.iptools&hl=en_US&gl=US
+			https://play.google.com/store/apps/details?id=com.ip2location.mobile&hl=fr&gl=US
+			
 TODO 1 : Save info in Storage : 
 						
 			kotlin :
@@ -51,6 +55,19 @@ TODO NO : Add zoom button on Map
 TODO NO : Check for my IP address (see how to)
 			--> NOT USEFULL
 
+For presentation
+-----------------
+
+- Explains :
+	- Save IP in SharedPreferences
+	- Show coordinates on Map and marker.
+	- 
+
+
+Ma 15.12.2020 - 08h30 - 10h-30
+--------------------
+
+- 
 
 Ma 23.11.2020 - 19h30 - 21h30
 --------------------
