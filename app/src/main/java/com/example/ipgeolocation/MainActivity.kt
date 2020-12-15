@@ -46,6 +46,8 @@ import kotlin.collections.ArrayList
 const val URL_API = "http://ip-api.com/json/"
 const val SHAREDPREF = "SharedPrefs"
 const val LASTIPUSED = "LastIPUsed"
+const val IP_ITEM_ = "Item_"
+const val IP_ITEM_NB = "ItemsNb"
 const val LASTIPUSED_DEFAULT = "87.88.89.90"
 
 data class IPLocationDataLocal(
@@ -61,9 +63,6 @@ class MainActivity : AppCompatActivity()  {
     private var textView: TextView? = null
     private var ipLocationDataFromAPI : IPLocationData? = null
     private var listIPLocationInfos = ArrayList<IPLocationData>()
-
-    // Define simulation Data :
-    // val ipLocationData1 = IPLocationDataLocal("82.15.68.85", "success", "Royaume-Uni", "Craignon")
 
     @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,14 +7,31 @@
     android:orientation="vertical"
     tools:context=".ListActivity">
 
-    <EditText
-        android:id="@+id/editTextNewIP"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:layout_margin="10dp"
-        android:hint="@string/new_ip_address"
-        android:autofillHints="" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextNewIP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:autofillHints=""
+            android:layout_weight="2"
+            android:hint="@string/new_ip_address"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/buttonClearIP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="8"
+            android:text="x" />
+
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/editTextNewComment"
@@ -27,24 +44,52 @@
         android:autofillHints="" />
 
     <Button
-        android:id="@+id/buttonAddFakes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:text="Add fakes values" />
-    <Button
         android:id="@+id/buttonAddNewIP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="@string/add_ip_to_list" />
 
-    <ListView
-        android:id="@+id/listViewComments"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonAddFakes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="5"
+            android:text="Add fakes values" />
+
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="5"
+            android:text="Clear Data" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/listViewComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+
+    </LinearLayout>
+
+
+
 
 
 </LinearLayout>

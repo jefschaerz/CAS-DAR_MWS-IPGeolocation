@@ -15,24 +15,17 @@ Backlog :
 ---------
 TODO 0 : Expliquer en détail dans Readme.md GitHub avec Maquette si besoin et PPT
 TODO 0 : Créer Powerpoint depuis XML
-
 TODO 0 : Use bundle to save info (IP address and all others) on screen rotation
-TODO 0 : Get return info in ArrayList to be able to show only returned values (filtered)
-
-TODO 0 : Select some options like (language, filter on info,..)
+			--> To check current state
+			
+			
+			
+TODO 1 : Select some options like (language, filter on info,..)
 			Add Settings activity (see how to !! (fragment))
 			
 			Use SharedPreferences save as the list
 			--> Not USeFUL
-TODO 0 : Add new IP into the list (add instead of use)
-TODO 0 : Check preview in landscape
-			Save info and check if call received
-			Scroll on landscape 
-			
-TODO 0 : Improve design like	
-			https://play.google.com/store/apps/details?id=net.bigdatacloud.iptools&hl=en_US&gl=US
-			https://play.google.com/store/apps/details?id=com.ip2location.mobile&hl=fr&gl=US
-			
+					
 TODO 1 : Save info in Storage : 
 						
 			kotlin :
@@ -61,14 +54,18 @@ For presentation
 - Explains :
 	- Save IP in SharedPreferences
 	- Show coordinates on Map and marker.
-	- 
+	- IP validator
+	- ListView with adaptator
 
 
-Ma 15.12.2020 - 08h30 - 10h-30
---------------------
-
+Ma 15.12.2020 - 08h30 - 10h-30 / 20h -22h
+-----------
+- Clear SharedPreferences files (car cela ajoute toujours...---------
+- Save ip list in ShardPreferences:
+	https://medium.com/@vanshbadkul/using-shared-preferences-for-strings-arrays-in-android-the-easy-way-198d4ed428a9
 - Change design Main Activity
 - Use IP and comments in Listactivity with Linear Layout
+- Add and delete IP in the list with confirmation message (long click)
 
 Ma 23.11.2020 - 19h30 - 21h30
 --------------------
