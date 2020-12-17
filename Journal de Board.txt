@@ -8,23 +8,19 @@ Idée : - Fournir une adresse IP a un service API qui nous retournera différent
 Questions :
 ------------
 - Use retrofit to avoid parsing every value ?
-- Library to display map according to Lat-Long
 - Var : multiple changes / Val : final constantes
 	   
 Backlog :
 ---------
-TODO 0 : Expliquer en détail dans Readme.md GitHub avec Maquette si besoin et PPT
-TODO 0 : Créer Powerpoint depuis XML
+TODO 0 : Expliquer en détail dans Readme.md GitHub avec Maquette si besoin 
+
 TODO 0 : Use bundle to save info (IP address and all others) on screen rotation
 			--> To check current state
 			
-			
-			
 TODO 1 : Select some options like (language, filter on info,..)
 			Add Settings activity (see how to !! (fragment))
+			https://www.youtube.com/watch?v=SbNQxPDUWaI
 			
-			Use SharedPreferences save as the list
-			--> Not USeFUL
 					
 TODO 1 : Save info in Storage : 
 						
@@ -58,9 +54,14 @@ For presentation
 	- ListView with adaptator
 
 
+Je 17.12.2020 - 15h-16h
+-----------
+- Create PPT
+- Test language parameters in request
+
 Ma 15.12.2020 - 08h30 - 10h-30 / 20h -22h
 -----------
-- Clear SharedPreferences files (car cela ajoute toujours...---------
+- Clear SharedPreferences files (car cela ajoute toujours...
 - Save ip list in ShardPreferences:
 	https://medium.com/@vanshbadkul/using-shared-preferences-for-strings-arrays-in-android-the-easy-way-198d4ed428a9
 - Change design Main Activity

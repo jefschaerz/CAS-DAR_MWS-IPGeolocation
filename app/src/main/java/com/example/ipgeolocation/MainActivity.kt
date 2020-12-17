@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity()  {
     private var textView: TextView? = null
     private var ipLocationDataFromAPI : IPLocationData? = null
     private var listIPLocationInfos = ArrayList<IPLocationData>()
+    private var languageAPI = "fr"
 
     @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity()  {
                 try {
                     val url = URL_API
                     val chosenIP = editTextIPAddress.text.toString()
-                    val fields = "?fields=status,message,continent,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,query"
+                    val fields = "?fields=status,message,continent,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,query" + "&lang=" + languageAPI
                     Log.d(TAG, "Start call to API with URL: " + url + chosenIP + fields)
                     askAPIData.execute(url + chosenIP + fields)
                 } catch (e: Exception) {
