@@ -8,6 +8,7 @@
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:padding="4dp"
         android:text="TextView"
         android:textColor="#3F51B5"
         android:textSize="16sp" />
@@ -17,6 +18,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:padding="4dp"
         android:text="TextViewValue"
         android:textSize="16sp" />
 

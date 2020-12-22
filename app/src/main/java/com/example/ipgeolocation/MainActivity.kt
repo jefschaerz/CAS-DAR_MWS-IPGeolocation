@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.wifi.WifiInfo
-import android.net.wifi.WifiManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -20,7 +20,6 @@ import org.json.JSONObject
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -46,6 +45,7 @@ import kotlin.collections.ArrayList
 const val URL_API = "http://ip-api.com/json/"
 const val SHAREDPREF = "SharedPrefs"
 const val LASTIPUSED = "LastIPUsed"
+const val LANGUAGE_API ="fr"
 const val IP_ITEM_ = "Item_"
 const val IP_ITEM_NB = "ItemsNb"
 const val LASTIPUSED_DEFAULT = "87.88.89.90"
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity()  {
     private var textView: TextView? = null
     private var ipLocationDataFromAPI : IPLocationData? = null
     private var listIPLocationInfos = ArrayList<IPLocationData>()
-    private var languageAPI = "fr"
+    public var languageAPI :String? = "fr"
 
     @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -154,6 +154,32 @@ class MainActivity : AppCompatActivity()  {
         // Load data from SharedPreferences
         loadData()
     }
+    // Add menu for Options
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.options, menu)
+        return true
+    }
+
+    // Actions on click menu items for API Language
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_langfr -> {
+            Toast.makeText(this, "FR language selected for API", Toast.LENGTH_LONG).show()
+            languageAPI = "fr"
+            true
+        }
+        R.id.action_langen -> {
+            Toast.makeText(this, "EN language selected for API", Toast.LENGTH_LONG).show()
+            languageAPI = "en"
+            true
+        }
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
+
 
     // ******************************************
     /* Load and Save Data in SharedPreferences */
@@ -162,6 +188,7 @@ class MainActivity : AppCompatActivity()  {
         // Get handle to shared preferences
         val sharedPref = this?.getSharedPreferences(SHAREDPREF, Context.MODE_PRIVATE)
         val defaultValue = LASTIPUSED_DEFAULT
+        val defaultValue_lang = "en"
         Log.i(TAG, "Value default : " + defaultValue)
         // Retrieve last IPAddress
         editTextIPAddress.setText(
@@ -169,6 +196,8 @@ class MainActivity : AppCompatActivity()  {
                 defaultValue
             )
         )
+        languageAPI = sharedPref.getString(LANGUAGE_API, defaultValue_lang)
+
         // Use GSON for list of IP
         Log.i(TAG, "Value : " + editTextIPAddress.text.toString())
     }
@@ -179,8 +208,8 @@ class MainActivity : AppCompatActivity()  {
             SHAREDPREF, Context.MODE_PRIVATE
         )
         with(sharedPref.edit()) {
-            // Last IPAddress
             putString(LASTIPUSED, editTextIPAddress.text.toString())
+            putString(LANGUAGE_API, languageAPI)
             // List of IP address defined
             apply()
         }

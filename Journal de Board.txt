@@ -16,11 +16,9 @@ TODO 0 : Expliquer en détail dans Readme.md GitHub avec Maquette si besoin
 
 TODO 0 : Use bundle to save info (IP address and all others) on screen rotation
 			--> To check current state
-			
-TODO 1 : Select some options like (language, filter on info,..)
-			Add Settings activity (see how to !! (fragment))
-			https://www.youtube.com/watch?v=SbNQxPDUWaI
-			
+TODO 0 : List Activity : Add part at the bottom
+
+--- END
 					
 TODO 1 : Save info in Storage : 
 						
@@ -53,6 +51,23 @@ For presentation
 	- IP validator
 	- ListView with adaptator
 
+
+
+Ma 22.12.2020 - 22h
+-----------
+- Add menu Settings wiht API result language
+- Saved and loaded also in SharedPreferences
+
+Extension: Select some options like (language, filter on info,..)
+			Add Settings activity (see how to !! (fragment))
+			https://tutorial.eyehunts.com/android/android-menu-option-menu-tutorial-example-kotlin/
+			https://code.tutsplus.com/tutorials/how-to-code-a-settings-screen-in-an-android-app--cms-30433
+			https://developer.android.com/codelabs/android-training-adding-settings-to-app#0
+			https://www.youtube.com/watch?v=SbNQxPDUWaI
+			
+		Options : 
+			- Créer une activity de types Preferences
+			- L'appel depus un menu ou depuis un bouton (simple)
 
 Je 17.12.2020 - 15h-16h
 -----------

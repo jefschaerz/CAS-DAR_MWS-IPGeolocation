@@ -139,8 +139,8 @@ class ListActivity : AppCompatActivity() {
                 vh = view.tag as ViewHolder
             }
 
-            vh.tvTitle.text = ipList[position].ipAddress
-            vh.tvContent.text = ipList[position].comments
+            vh.tvIP.text = ipList[position].ipAddress
+            vh.tvComment.text = ipList[position].comments
 
             return view
         }
@@ -159,12 +159,12 @@ class ListActivity : AppCompatActivity() {
     }
 
     private class ViewHolder(view: View?) {
-        val tvTitle: TextView
-        val tvContent: TextView
+        val tvIP: TextView
+        val tvComment: TextView
 
         init {
-            this.tvTitle = view?.findViewById(R.id.tvTitle) as TextView
-            this.tvContent = view?.findViewById(R.id.tvContent) as TextView
+            this.tvIP = view?.findViewById(R.id.tvIP) as TextView
+            this.tvComment = view?.findViewById(R.id.tvComment) as TextView
         }
     }
 
