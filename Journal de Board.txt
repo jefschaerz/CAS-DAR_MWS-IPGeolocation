@@ -16,7 +16,7 @@ TODO 0 : Expliquer en détail dans Readme.md GitHub avec Maquette si besoin
 
 TODO 0 : Use bundle to save info (IP address and all others) on screen rotation
 			--> To check current state
-TODO 0 : List Activity : Add part at the bottom
+
 
 --- END
 					
@@ -51,7 +51,12 @@ For presentation
 	- IP validator
 	- ListView with adaptator
 
-
+Ma 05.01.2021 - 14h
+-----------
+- Improve Powerpoint
+- Add latest screenshots
+- Move buttons to the bottom in list
+- Improve width of list with big comments
 
 Ma 22.12.2020 - 22h
 -----------
