@@ -5,17 +5,9 @@ Idée : - Fournir une adresse IP a un service API qui nous retournera différent
 	   - Ajouter des choix des IP par rapport à une liste éditable
 	   - Ev. Afficher Map
     
-Questions :
-------------
-- Use retrofit to avoid parsing every value ?
-- Var : multiple changes / Val : final constantes
-	   
+   
 Backlog :
 ---------
-TODO 0 : Expliquer en détail dans Readme.md GitHub avec Maquette si besoin 
-
-TODO 0 : Use bundle to save info (IP address and all others) on screen rotation
-			--> To check current state
 
 
 --- END
@@ -34,7 +26,6 @@ TODO 1 : Save info in Storage :
 			https://developer.android.com/training/data-storage/shared-preferences
 
 TODO 1 : Contrôler si connectivité web dispo (voir pdf connectivity..)
-
 TODO 1 : Save as Listadvanced (view)
 
 TODO NO : Add zoom button on Map
@@ -50,6 +41,12 @@ For presentation
 	- Show coordinates on Map and marker.
 	- IP validator
 	- ListView with adaptator
+
+DI 10.01.2021 - 9h-10h30
+-----------
+
+- Expliquer en détail dans Readme.md GitHub avec Maquette si besoin 
+- Finaliser présentation.
 
 Ma 05.01.2021 - 14h
 -----------

@@ -2,7 +2,7 @@
 <a name="top"></a>
 Ce repository contient les sources du projet "IP Localisation" réalisé dans le cadre du CAS-DAR MSW 2020.
 
-La présentation "0_Présentation - IP-Locator.ptx" explique en détails les fonctionnalités. 
+La présentation "0_Présentation - IP-Locator.pptx" explique en détails les fonctionnalités. 
 Voici ci-dessous un résumé.
 
 - [Description de l'application](#description-application)
