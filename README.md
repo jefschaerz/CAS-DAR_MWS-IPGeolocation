@@ -1,9 +1,10 @@
 # CAS-DAR_MWS-IPGeolocation
 <a name="top"></a>
-Ce repository contient les sources du projet "IP Localisation" réalisé dans le cadre du CAS-DAR MSW 2020.
+Ce repository contient les sources du projet "IP Localisation" réalisé dans le cadre du CAS-DAR MWS 2020.
 
 La présentation "0_Présentation - IP-Locator.pptx" explique en détails les fonctionnalités. 
-Voici ci-dessous un résumé.
+
+Voici ci-dessous un résumé:
 
 - [Description de l'application](#description-application)
 - [Fonctionnalités de l'application](#fonction-application)
@@ -11,7 +12,7 @@ Voici ci-dessous un résumé.
 
 <a name="description-application"></a>
 # Description de l'application
-L'application "Citizen engagement" permet en fonction d'une adresse IP fournie de recevoir en retour des informations de localisation de cette adresse IP.
+L'application permet en fonction d'une adresse IP fournie de recevoir en retour des informations de localisation de cette adresse IP.
 
 ![MainActivity](doc/MainActivity.png)
 
