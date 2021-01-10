@@ -430,16 +430,16 @@ class MainActivity : AppCompatActivity()  {
         // Le Bundle est une class (court terme) qui a des méthodes pour sauver
        Log.i(TAG, "onSavedInstanceState called")
         super.onSaveInstanceState(savedInstanceState)
-        //TODO : Save IP address written in the field
+        // TODO : Save IP address written in the field
     }
 
     // Permet de récupérer après
     // Sera appelé entre onStart et onResume
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        //Essaye de récupérer un compteur et voir s'il est conservé après le on stop..
+        // Essaye de récupérer un compteur et voir s'il est conservé après le on stop..
         Log.i(TAG, "onRestoreInstanceState")
          super.onRestoreInstanceState(savedInstanceState)
-        //TODO : Restored IP address written in the field
+        // TODO : Restored IP address written in the field
         //val savedString = savedInstanceState.getString(TEXT_CONTENTS, "")
 
     }

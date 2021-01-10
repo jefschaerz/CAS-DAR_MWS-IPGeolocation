@@ -56,23 +56,21 @@ class ListActivity : AppCompatActivity() {
             true
         }
 
-        // Define On Click event --> Use it
+        // Define On Short Click event --> Use it
         listViewComments.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
             val resultIntent = Intent()
             resultIntent.putExtra("result", ipListComments[position].ipAddress as String)
             setResult(RESULT_OK, resultIntent)
-            // TODO : Find all places to save
             saveIPListData()
             finish()
         }
-        // Define action on clera IP button
+        // Define action on clear IP button
         buttonClearIP.setOnClickListener {
             editTextNewIP.setText("")
         }
 
         // Define action on Use this and send back to main activity
         buttonAddNewIP.setOnClickListener {
-            // TODO : Create global func for this
             val isValidIP = IPAddressValidation.isValidIPAddress(editTextNewIP.text.toString()) ;
             Log.d(TAG, "IP :" + editTextNewIP.text.toString())
             if (!isValidIP)
@@ -96,7 +94,7 @@ class ListActivity : AppCompatActivity() {
             }
         }
 
-        // Define action on Add IP values
+        // Define action on AddFakes IP values
         buttonAddFakes.setOnClickListener {
             // Create list of IP
             ipListComments.add(IpListComment("178.197.249.50", "Lucerne CH"))
@@ -105,8 +103,11 @@ class ListActivity : AppCompatActivity() {
             ipListComments.add(IpListComment("81.246.23.87", "Liège BE"))
             ipListComments.add(IpListComment("192.168.27.254", "Error - Local range"))
             ipListComments.add(IpListComment("260.26.236.220", "Error - Bad IP format"))
+            saveIPListData()
             (listViewComments.adapter as BaseAdapter).notifyDataSetChanged()
         }
+
+        // Define action on Clear All IP values
         buttonClear.setOnClickListener {
             ipListComments.clear()
             clearIPListData()
@@ -219,5 +220,4 @@ class ListActivity : AppCompatActivity() {
             apply()
         }
     }
-
 }
